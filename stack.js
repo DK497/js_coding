@@ -34,10 +34,10 @@ class Stack {
 
     this.sort();
 
-    this.insert(lastEl);
+    this.insertAscending(lastEl);
   }
   // aray is sorted in ascending order
-  insert(el) {
+  insertAscending(el) {
     if (this.isEmpty() || el > this.peek()) {
       this.push(el);
 
@@ -46,13 +46,42 @@ class Stack {
 
     let temp = this.pop();
 
-    this.insert(el);
+    this.insertAscending(el);
 
     this.push(temp);
     return;
   }
-  middleElement() {
+  middleElement(k) {
+    // k is position of stack from which we are returning Element.
     // middle=(size/2)+1
+    if (k === 1) {
+      let el = this.pop();
+      console.log(`popped out ${el}`);
+      return el;
+    }
+    let temp = this.pop();
+    this.middleElement(k - 1);
+    this.push(temp);
+  }
+  reverse() {
+    if (this.size() === 0) return;
+
+    let temp = this.pop();
+    this.reverse();
+
+    // this will insert at top not bottom wwe need to right
+    // cutom insert at bottom
+    // this.push(temp);
+    this.insertAtBottom(temp);
+  }
+  insertAtBottom(el) {
+    if (this.size() === 0) {
+      this.push(el);
+      return;
+    }
+    let temp = this.pop();
+    this.insertAtBottom(el);
+    this.push(temp);
   }
 }
 
@@ -66,4 +95,7 @@ stack.push(90);
 stack.push(7);
 stack.print();
 stack.sort();
+stack.print();
+stack.middleElement(3);
+stack.reverse();
 stack.print();

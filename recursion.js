@@ -8,6 +8,14 @@
 //     asscending
 //     descending
 
+/*We build a table of n rows (1-indexed). We start
+ by writing 0 in the 1st row. Now in every subsequent row, we look 
+ at the previous row and replace each occurrence of 0 with 01, and 
+ each occurrence of 1 with 10.
+For example, for n = 3, the 1st row is 0, the 2nd row is 01, and the 3rd row is 0110.
+Given two integer n and k, return the kth (1-indexed) symbol in the nth
+ row of a table of n rows. */
+
 function print1toN(n) {
   if (n === 1) {
     console.log(1);
@@ -111,3 +119,25 @@ function insertDescending(arr, el) {
 // const arr = [3, 1, 2, 66, 0, 5, 22, 44, 12, 19, -9, -11];
 // sort(arr);
 // console.log(arr);
+
+function kthGrammar(n, k) {
+  if (n === 1 && k === 1) {
+    return 0;
+  }
+  let mid = Math.pow(2, n - 2);
+  if (k <= mid) return kthGrammar(n - 1, k);
+  else return !kthGrammar(n - 1, k - mid);
+}
+
+
+// console.log(kthGrammar(3, 4));
+
+// watch video of tower of hanoi
+function towerOFHanoi(s,d,h,n){
+if(n===1){
+console.log(`Move ${n}th disk from ${s} to ${d}`);
+}
+towerOFHanoi(s,h,d,n-1);
+console.log(`Move ${n}th disk from ${s} to ${d}`)
+towerOFHanoi(h,d,s,n-1);
+}
